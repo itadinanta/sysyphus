@@ -1,0 +1,56 @@
+[package]
+name = "sysyphus"
+version = "0.1.0"
+edition = "2021"
+readme = "README.md"
+description = "Sysinfo bars"
+license = "Apache-2.0"
+
+# See more keys and their definitions at https://doc.rust-lang.org/cargo/reference/manifest.html
+
+[features]
+default = []
+profiler = []
+capture = []
+
+[[bin]]
+name = "sysyphus"
+path = "src/main.rs"
+
+[dependencies]
+num = "*"
+num-traits = "*"
+log = "*"
+itertools = "*"
+log4rs = "*"
+cgmath = "*"
+rand = "*"
+chrono = "*"
+enum_primitive = "*"
+bitflags = "1.0"
+bit-set = "*"
+csv = "1.1.6"
+image = "*"
+
+#sys
+ctrlc = "*"
+dirs = "*"
+getopts = "*"
+cpuprofiler = "*"
+rayon = "*"
+clap = "*"
+
+#serialization
+serde = "*"
+serde_derive = "*"
+serde_json = "*"
+
+#gui
+winit = "0.27.5"
+clipboard = "*"
+glium = { version = "*", default-features = true }
+imgui = "*"
+imgui-sys = "*"
+imgui-glium-renderer = "*"
+imgui-winit-support = "*"
+thread-priority = "*"
