@@ -38,7 +38,9 @@ dirs = "*"
 getopts = "*"
 cpuprofiler = "*"
 rayon = "*"
-clap = "*"
+spin_sleep = "*"
+sysinfo = "*"
+clap = { version ="*", features=["derive"]}
 
 #serialization
 serde = "*"
