@@ -40,6 +40,13 @@ impl Default for Sampler {
 
 impl Sampler {
 	pub fn sample(&mut self) -> Sample {
+		self.sys.refresh_all();
+		let global_cpu = self.sys.global_cpu_info();
+		let cpu = {
+			let usage = global_cpu.cpu_usage() * 0.01;
+			Cpu { idle: 1. - usage, load: usage, sys: 0. }
+		};
+
 		let cpus: Vec<Cpu> = self
 			.sys
 			.cpus()
@@ -49,19 +56,6 @@ impl Sampler {
 				Cpu { idle: 1. - usage, load: usage, sys: 0. }
 			})
 			.collect();
-
-		let cpu_sum = cpus.iter().fold(Cpu::default(), |acc, cpu| Cpu {
-			idle: acc.idle + cpu.idle,
-			load: acc.load + cpu.load,
-			..Default::default()
-		});
-		let n_cpus = cpus.len();
-		let cpu = Cpu {
-			idle: cpu_sum.idle / n_cpus as f32,
-			load: cpu_sum.load / n_cpus as f32,
-			..Default::default()
-		};
-		self.sys.refresh_all();
 		Sample { cpu, cpus, ..Default::default() }
 	}
 }
