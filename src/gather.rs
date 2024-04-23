@@ -1,4 +1,3 @@
-///
 use sysinfo::*;
 
 #[derive(Copy, Clone, Default, Debug)]

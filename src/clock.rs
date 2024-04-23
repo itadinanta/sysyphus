@@ -23,10 +23,7 @@ impl SystemTimer {
 
 impl Timer for SystemTimer {
 	fn elapsed(&self) -> Duration {
-		match self.t0.elapsed() {
-			Ok(dt) => dt,
-			Err(_) => Duration::ZERO,
-		}
+		self.t0.elapsed().unwrap_or(Duration::ZERO)
 	}
 }
 

@@ -28,9 +28,9 @@ struct Args {
 	bind: Option<std::net::IpAddr>,
 }
 
+// this doesn't appear to work in XFCE on Debian Sid
 fn event_main() {
-	let path = concat!(env!("CARGO_MANIFEST_DIR"), "/examples/icon.png");
-	let icon = load_icon(std::path::Path::new(path));
+	let icon = load_icon(&std::path::PathBuf::from("resources").join("icon.png"));
 
 	let event_loop = EventLoopBuilder::new().build();
 
@@ -81,7 +81,7 @@ fn load_icon(path: &std::path::Path) -> tray_icon::Icon {
 	let (icon_rgba, icon_width, icon_height) = {
 		// let image = image::open(path).expect("Failed to open icon
 		// path").into_rgba8();
-		let image = image::ImageBuffer::from_fn(512, 32, |x, y| {
+		let image = image::ImageBuffer::from_fn(32, 32, |x, y| {
 			if x % 2 == 0 {
 				image::Rgba([0u8, 0u8, 0u8, 255u8])
 			} else {
@@ -108,6 +108,6 @@ fn main() {
 	init_config(log_config.unwrap()).unwrap();
 
 	// let args = Args::parse();
-	event_main();
-	// app::App::default().run();
+	// event_main();
+	app::App::default().run();
 }
